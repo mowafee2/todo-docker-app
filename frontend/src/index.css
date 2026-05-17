@@ -1,0 +1,43 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f5f0e8;
+  --surface:  #ede8de;
+  --card:     #faf8f4;
+  --border:   #d6cfc0;
+  --ink:      #1a1612;
+  --muted:    #8c8070;
+  --accent:   #c84b2f;
+  --accent2:  #2f6bc8;
+  --done-fg:  #b0a898;
+  --shadow:   0 2px 12px rgba(26,22,18,0.08);
+
+  --mono:     'DM Mono', monospace;
+  --serif:    'Fraunces', serif;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+::selection { background: var(--accent); color: #fff; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}

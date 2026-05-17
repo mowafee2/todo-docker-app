@@ -1,0 +1,40 @@
+services:
+  mongodb:
+    image: mongo:6.0
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_NAME}
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - todo-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "${BACKEND_PORT}:5000"
+    environment:
+      - MONGO_URI=mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASS}@mongodb:27017/${MONGO_DB_NAME}?authSource=admin
+      - PORT=5000
+    depends_on:
+      - mongodb
+    networks:
+      - todo-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+
+volumes:
+  mongo-data:
+
+networks:
+  todo-network:
+    driver: bridge
